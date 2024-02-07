@@ -1,0 +1,673 @@
+annotations:
+  - border_color: '#808080FF'
+    border_radius: 0
+    border_style: ''
+    color: '#36C0B8FF'
+    thickness: 1
+    type: rectangle
+    x1: -240.0
+    y1: -400.0
+    x2: 640.0
+    y2: 360.0
+    z_index: 0
+  - border_color: '#00000000'
+    border_style: ''
+    color: '#000000FF'
+    rotation: 0
+    text_bold: false
+    text_content: 192.168.1.0/24
+    text_font: monospace
+    text_italic: false
+    text_size: 14
+    text_unit: pt
+    thickness: 1
+    type: text
+    x1: 200.0
+    y1: -360.0
+    z_index: 1
+  - border_color: '#00000000'
+    border_style: ''
+    color: '#000000FF'
+    rotation: 0
+    text_bold: false
+    text_content: 100.100.100.100
+    text_font: monospace
+    text_italic: false
+    text_size: 14
+    text_unit: pt
+    thickness: 1
+    type: text
+    x1: 0.0
+    y1: -760.0
+    z_index: 2
+  - border_color: '#808080FF'
+    border_style: ''
+    color: '#B9BFC9FF'
+    thickness: 1
+    type: ellipse
+    x1: 80.0
+    y1: -440.0
+    x2: 80.0
+    y2: 80.0
+    z_index: 1
+  - border_color: '#00000000'
+    border_style: ''
+    color: '#000000FF'
+    rotation: 0
+    text_bold: false
+    text_content: 100.64.50.48/30
+    text_font: monospace
+    text_italic: false
+    text_size: 14
+    text_unit: pt
+    thickness: 1
+    type: text
+    x1: -120.0
+    y1: -520.0
+    z_index: 3
+  - border_color: '#808080FF'
+    border_style: ''
+    color: '#FDFF14FF'
+    thickness: 1
+    type: ellipse
+    x1: 80.0
+    y1: -620.0
+    x2: 40.0
+    y2: 100.0
+    z_index: 2
+  - border_color: '#00000000'
+    border_style: ''
+    color: '#000000FF'
+    rotation: 0
+    text_bold: false
+    text_content: 100.64.50.52/30
+    text_font: monospace
+    text_italic: false
+    text_size: 14
+    text_unit: pt
+    thickness: 1
+    type: text
+    x1: 120.0
+    y1: -520.0
+    z_index: 3
+nodes:
+  - boot_disk_size: null
+    configuration: |-
+      ! IOS Config generated on 2024-01-23 04:30
+      ! by ank-ng
+      !
+      hostname main-router
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      license accept end user agreement
+      license boot level premium
+      !
+      !
+      no aaa new-model
+      !
+      !
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      no service config
+      enable password cisco
+      enable secret cisco
+      ip classless
+      ip subnet-zero
+      no ip domain lookup
+      ip domain name virl.info
+      crypto key generate rsa modulus 768
+      ip ssh server algorithm authentication password
+      username cisco privilege 15 secret cisco
+      line vty 0 4
+       transport input ssh telnet
+       exec-timeout 720 0
+       password cisco
+       login local
+      line con 0
+       password cisco
+      !
+      no cdp run
+      !
+      !
+      interface Loopback0
+          description not connected
+          no ip address
+          shutdown
+      interface GigabitEthernet1
+          description to GigabitEthernet0/0.iosvl2-0
+          ip address 192.168.1.2 255.255.255.0
+          no shutdown
+      interface GigabitEthernet2
+          description to GigabitEthernet0/2.ISP
+          ip address 100.64.50.50 255.255.255.252
+          no shutdown
+      interface GigabitEthernet3
+          description not connected
+          no ip address
+          shutdown
+      interface GigabitEthernet4
+          description not connected
+          no ip address
+          shutdown
+      !
+      ip route 0.0.0.0 0.0.0.0 100.64.50.49
+      !
+      end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n0
+    image_definition: null
+    label: Router 0
+    node_definition: csr1000v
+    ram: null
+    tags: []
+    x: 0
+    y: -400
+    interfaces:
+      - id: i0
+        label: Loopback0
+        type: loopback
+      - id: i1
+        label: GigabitEthernet1
+        slot: 0
+        type: physical
+      - id: i2
+        label: GigabitEthernet2
+        slot: 1
+        type: physical
+      - id: i3
+        label: GigabitEthernet3
+        slot: 2
+        type: physical
+      - id: i4
+        label: GigabitEthernet4
+        slot: 3
+        type: physical
+  - boot_disk_size: null
+    configuration: |-
+      # this is a shell script which will be sourced at boot
+      hostname desktop-0
+      # configurable user account
+      USERNAME=cisco
+      PASSWORD=cisco
+      ifconfig eth0 192.168.1.10 netmask 255.255.255.0
+      route add default gw 192.168.1.1 eth0
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n1
+    image_definition: null
+    label: desktop-0
+    node_definition: desktop
+    ram: null
+    tags: []
+    x: -80
+    y: -120
+    interfaces:
+      - id: i0
+        label: eth0
+        slot: 0
+        type: physical
+  - boot_disk_size: null
+    configuration: |-
+      # this is a shell script which will be sourced at boot
+      hostname desktop-1
+      # configurable user account
+      USERNAME=cisco
+      PASSWORD=cisco
+      ifconfig eth0 192.168.1.11 netmask 255.255.255.0
+      route add default gw 192.168.1.1 eth0
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n2
+    image_definition: null
+    label: desktop-1
+    node_definition: desktop
+    ram: null
+    tags: []
+    x: 240
+    y: -120
+    interfaces:
+      - id: i0
+        label: eth0
+        slot: 0
+        type: physical
+  - boot_disk_size: null
+    configuration: |-
+      ! IOSvL2 Config generated on 2024-01-23 04:30
+      ! by ank-ng
+      !
+      version 15.2
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      service compress-config
+      no service config
+      enable password cisco
+      ip classless
+      ip subnet-zero
+      no ip domain lookup
+      !
+      line vty 0 4
+      transport input ssh telnet
+      exec-timeout 720 0
+      password cisco
+      login
+      !
+      line con 0
+      password cisco
+      !
+      hostname iosvl2-0
+      !
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      no aaa new-model
+      !
+      vtp domain virl.lab
+      vtp mode transparent
+      !
+      vlan 2
+        name ank_vlan2
+      !
+      !
+      no cdp run
+      !
+      !
+      ip cef
+      no ipv6 cef
+      !
+      spanning-tree mode pvst
+      spanning-tree extend system-id
+      !
+      vlan internal allocation policy ascending
+      !
+      !
+      vrf definition Mgmt-intf
+      !
+       address-family ipv4
+       exit-address-family
+       !
+       address-family ipv6
+       exit-address-family
+      !
+      !
+      interface Loopback0
+          description not connected
+          duplex full
+          no ip address
+          shutdown
+      interface GigabitEthernet0/0
+          description to GigabitEthernet1.Router 0
+          duplex full
+          switchport
+          no ip address
+          no shutdown
+      interface GigabitEthernet0/1
+          description to eth0.desktop-0
+          duplex full
+          switchport
+          no ip address
+          no shutdown
+      interface GigabitEthernet0/2
+          description to eth0.desktop-1
+          duplex full
+          switchport
+          no ip address
+          no shutdown
+      interface GigabitEthernet0/3
+          description to GigabitEthernet1.Router 1
+          duplex full
+          switchport
+          no ip address
+          no shutdown
+      !
+      !
+      ip forward-protocol nd
+      !
+      no ip http server
+      no ip http secure-server
+      !
+      !
+      control-plane
+      !
+      end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n3
+    image_definition: null
+    label: iosvl2-0
+    node_definition: iosvl2
+    ram: null
+    tags: []
+    x: 80
+    y: -240
+    interfaces:
+      - id: i0
+        label: Loopback0
+        type: loopback
+      - id: i1
+        label: GigabitEthernet0/0
+        slot: 0
+        type: physical
+      - id: i2
+        label: GigabitEthernet0/1
+        slot: 1
+        type: physical
+      - id: i3
+        label: GigabitEthernet0/2
+        slot: 2
+        type: physical
+      - id: i4
+        label: GigabitEthernet0/3
+        slot: 3
+        type: physical
+  - boot_disk_size: null
+    configuration: |-
+      # this is a shell script which will be sourced at boot
+      hostname target-server
+      # configurable user account
+      USERNAME=cisco
+      PASSWORD=instructor
+      # no password for tc user by default
+      TC_PASSWORD=
+      ifconfig eth0 100.100.100.100 netmask 255.255.255.0
+      route add default gw 100.100.100.1 eth0
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n4
+    image_definition: null
+    label: Target Server
+    node_definition: server
+    ram: null
+    tags: []
+    x: 80
+    y: -720
+    interfaces:
+      - id: i0
+        label: eth0
+        slot: 0
+        type: physical
+  - boot_disk_size: null
+    configuration: |-
+      ! IOS Config generated on 2024-01-23 05:25
+      ! by ank-ng
+      !
+      hostname isp
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      license accept end user agreement
+      license boot level premium
+      !
+      !
+      no aaa new-model
+      !
+      !
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      no service config
+      enable password instructor
+      enable secret instructor
+      ip classless
+      ip subnet-zero
+      no ip domain lookup
+      ip domain name virl.info
+      crypto key generate rsa modulus 768
+      ip ssh server algorithm authentication password
+      username cisco privilege 15 secret cisco
+      line vty 0 4
+       transport input ssh telnet
+       exec-timeout 720 0
+       password instructor
+       login local
+      line con 0
+       password instructor
+      !
+      no cdp run
+      !
+      ip dhcp excluded-address 100.64.50.9
+      ip dhcp pool INET
+      network 100.64.50.8 /30
+      default-router 100.64.50.9
+      !
+      interface Loopback0
+          description not connected
+          no ip address
+          shutdown
+      interface GigabitEthernet1
+          description to eth0.Target Server
+          ip address 100.100.100.1 255.255.255.0
+          no shutdown
+      interface GigabitEthernet2
+          description to GigabitEthernet2.Router 0
+          ip address 100.64.50.49 255.255.255.252
+          no shutdown
+      interface GigabitEthernet3
+          description to GigabitEthernet2.Router 1
+          ip address 100.64.50.53 255.255.255.252
+          no shutdown
+      interface GigabitEthernet4
+          description not connected
+          no ip address
+          shutdown
+      !
+      ip sla 1
+       icmp-echo 100.64.50.50 source-interface GigabitEthernet2
+        threshold 250
+        timeout 500
+        frequency 2
+      ip sla schedule 1 life forever start-time now
+      ip sla 2
+       icmp-echo 100.64.50.54 source-interface GigabitEthernet3
+        threshold 250
+        timeout 500
+        frequency 2
+      ip sla schedule 2 life forever start-time now
+      !
+      track 1 ip sla 1 reachability
+      track 2 ip sla 2 reachability
+      !
+      ip route 192.168.1.0 255.255.255.0 100.64.50.50 track 1
+      ip route 192.168.1.0 255.255.255.0 100.64.50.54 track 2
+      !
+      end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n5
+    image_definition: null
+    label: ISP
+    node_definition: csr1000v
+    ram: null
+    tags: []
+    x: 80
+    y: -520
+    interfaces:
+      - id: i0
+        label: Loopback0
+        type: loopback
+      - id: i1
+        label: GigabitEthernet1
+        slot: 0
+        type: physical
+      - id: i2
+        label: GigabitEthernet2
+        slot: 1
+        type: physical
+      - id: i3
+        label: GigabitEthernet3
+        slot: 2
+        type: physical
+      - id: i4
+        label: GigabitEthernet4
+        slot: 3
+        type: physical
+  - boot_disk_size: null
+    configuration: |-
+      ! IOS Config generated on 2024-01-23 04:30
+      ! by ank-ng
+      !
+      hostname main-router
+      boot-start-marker
+      boot-end-marker
+      !
+      !
+      license accept end user agreement
+      license boot level premium
+      !
+      !
+      no aaa new-model
+      !
+      !
+      service timestamps debug datetime msec
+      service timestamps log datetime msec
+      no service password-encryption
+      no service config
+      enable password cisco
+      enable secret cisco
+      ip classless
+      ip subnet-zero
+      no ip domain lookup
+      ip domain name virl.info
+      crypto key generate rsa modulus 768
+      ip ssh server algorithm authentication password
+      username cisco privilege 15 secret cisco
+      line vty 0 4
+       transport input ssh telnet
+       exec-timeout 720 0
+       password cisco
+       login local
+      line con 0
+       password cisco
+      !
+      no cdp run
+      !
+      !
+      interface Loopback0
+          description not connected
+          no ip address
+          shutdown
+      interface GigabitEthernet1
+          description to GigabitEthernet0/0.iosvl2-0
+          ip address 192.168.1.3 255.255.255.0
+          no shutdown
+      interface GigabitEthernet2
+          description to GigabitEthernet0/3.ISP
+          ip address 100.64.50.54 255.255.255.252
+          no shutdown
+      interface GigabitEthernet3
+          description not connected
+          no ip address
+          shutdown
+      interface GigabitEthernet4
+          description not connected
+          no ip address
+          shutdown
+      !
+      ip route 0.0.0.0 0.0.0.0 100.64.50.53
+      !
+      end
+    cpu_limit: null
+    cpus: null
+    data_volume: null
+    hide_links: false
+    id: n6
+    image_definition: null
+    label: Router 1
+    node_definition: csr1000v
+    ram: null
+    tags: []
+    x: 160
+    y: -400
+    interfaces:
+      - id: i0
+        label: Loopback0
+        type: loopback
+      - id: i1
+        label: GigabitEthernet1
+        slot: 0
+        type: physical
+      - id: i2
+        label: GigabitEthernet2
+        slot: 1
+        type: physical
+      - id: i3
+        label: GigabitEthernet3
+        slot: 2
+        type: physical
+      - id: i4
+        label: GigabitEthernet4
+        slot: 3
+        type: physical
+links:
+  - id: l0
+    n1: n1
+    n2: n3
+    i1: i0
+    i2: i2
+    conditioning: {}
+    label: desktop-0-eth0<->iosvl2-0-GigabitEthernet0/1
+  - id: l1
+    n1: n2
+    n2: n3
+    i1: i0
+    i2: i3
+    conditioning: {}
+    label: desktop-1-eth0<->iosvl2-0-GigabitEthernet0/2
+  - id: l2
+    n1: n3
+    n2: n0
+    i1: i1
+    i2: i1
+    conditioning: {}
+    label: iosvl2-0-GigabitEthernet0/0<->Main Router-GigabitEthernet1
+  - id: l3
+    n1: n4
+    n2: n5
+    i1: i0
+    i2: i1
+    conditioning: {}
+    label: Target Server-eth0<->ISP-GigabitEthernet1
+  - id: l4
+    n1: n5
+    n2: n0
+    i1: i2
+    i2: i2
+    conditioning: {}
+    label: ISP-GigabitEthernet2<->Main Router-GigabitEthernet2
+  - id: l5
+    n1: n3
+    n2: n6
+    i1: i4
+    i2: i1
+    conditioning: {}
+    label: iosvl2-0-GigabitEthernet0/3<->Router 1-GigabitEthernet1
+  - id: l6
+    n1: n6
+    n2: n5
+    i1: i2
+    i2: i3
+    conditioning: {}
+    label: Router 1-GigabitEthernet2<->ISP-GigabitEthernet3
+lab:
+  description: ''
+  notes: ''
+  title: VRRP Lab
+  version: 0.2.1
